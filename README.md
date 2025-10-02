@@ -1,2 +1,2 @@
 Hey guys! 
-when you make varibles put them here:
+when you make variables put them here:
