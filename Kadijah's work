@@ -1,1 +1,271 @@
+class Person {
+    protected String name;
+    protected int age;
+    protected String ssn;
+    boolean alive;
 
+    public Person(String n, String s, int a) {
+        this.name = n;
+        this.age = a;
+        this.ssn = s;
+    }
+
+    public Person() {}
+
+    public Person(Person p) {
+        if (p == null) {
+            System.err.println("Person object invalid! Stop!");
+            System.exit(1);
+        }
+        this.name = p.name;
+        this.age = p.age;
+        this.ssn = p.ssn;
+    }
+
+    public void setSSN(String s1) {
+        this.ssn = s1;
+    }
+
+    public String getSSN() {
+        return this.ssn;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getAge() {
+        return this.age;
+    }
+}
+
+class Student extends Person {
+    private String stu_id;
+    private Double gpa;
+    private String grade;
+
+    public Student(String x, String y, int z, String id, double g, String grade) {
+        super(x, y, z);
+        this.stu_id = id;
+        this.gpa = g;
+        this.grade = grade;
+    }
+
+    public String getId() {
+        return this.stu_id;
+    }
+
+    public double getGPA() {
+        return this.gpa;
+    }
+
+    public String getGrade() {
+        return this.grade;
+    }
+
+    public void setID(String id) {
+        this.stu_id = id;
+    }
+
+    public void setGPA(double g) {
+        this.gpa = g;
+    }
+
+    public void setGrade(String g) {
+        this.grade = g;
+    }
+
+    public String toString() {
+        return "Student name: " + name + " Student ID: " + stu_id + " Age: " + age + " GPA: " + gpa + " Grade: " + grade;
+    }
+}
+
+class Teacher extends Person {
+    protected String Id;
+    protected Double Salary;
+    protected String num_yr_prof;
+
+    public Teacher(String x, String y, int z, String id, double s, String yrs) {
+        super(x, y, z);
+        this.Id = id;
+        this.Salary = s;
+        this.num_yr_prof = yrs;
+    }
+
+    public String getId() {
+        return this.Id;
+    }
+
+    public double getSalary() {
+        return this.Salary;
+    }
+
+    public String getNum_yr_prof() {
+        return this.num_yr_prof;
+    }
+
+    public void setID(String id) {
+        this.Id = id;
+    }
+
+    public void setSalary(double s) {
+        this.Salary = s;
+    }
+
+    public void setNum_yr_prof(String num) {
+        this.num_yr_prof = num;
+    }
+
+    public String toString() {
+        return "Teacher name: " + name + " Age: " + age + " Years as Professor: " + num_yr_prof + " ID: " + Id + " Salary: " + Salary;
+    }
+}
+
+class Professer extends Teacher {
+    private String Specialty;
+    private String research_area;
+    private String rank;
+    public boolean tentured = false;
+
+    public Professer(String x, String y, int z, String id, double s, String yrs) {
+        super(x, y, z, id, s, yrs);
+        this.Specialty = id;
+        this.research_area = yrs;
+    }
+
+    public String getSpecialty() {
+        return this.Specialty;
+    }
+
+    public String getResearch_area() {
+        return this.research_area;
+    }
+
+    public String getRank() {
+        return this.rank;
+    }
+
+    public void setSpecialty(String s) {
+        this.Specialty = s;
+    }
+
+    public void setResearch_area(String s) {
+        this.research_area = s;
+    }
+
+    public void setRank(String s) {
+        this.rank = s;
+    }
+
+    public String toString() {
+        return "Professor name: " + name + " Age: " + age + " Years as Professor: " + num_yr_prof +
+                " ID: " + Id + " Salary: " + Salary + " Research area: " + research_area + " Rank: " + rank;
+    }
+}
+
+class CollegeStudent extends Student {
+    private String major;
+    private String level;
+
+    public CollegeStudent(String x, String y, int z, String id, double g, String grade, String major, String level) {
+        super(x, y, z, id, g, grade);
+        this.major = major;
+        this.level = level;
+    }
+
+    public String getMajor() {
+        return this.major;
+    }
+
+    public String getLevel() {
+        return this.level;
+    }
+
+    public void setMajor(String s) {
+        this.major = s;
+    }
+
+    public void setLevel(String s) {
+        this.level = s;
+    }
+
+    public String toString() {
+        return super.toString() + " Major: " + major + " Level: " + level;
+    }
+}
+
+class Course {
+    private Professer instructor;
+    private CollegeStudent[] student;
+    private String course_name;
+
+    public Course(Professer instructor, CollegeStudent[] student, String course_name) {
+        this.instructor = instructor;
+        this.course_name = course_name;
+
+        this.student = new CollegeStudent[student.length];
+        for (int i = 0; i < student.length; i++) {
+            this.student[i] = student[i];
+        }
+    }
+
+    public Professer getInstructor() {
+        return this.instructor;
+    }
+
+    public String getCourse_name() {
+        return this.course_name;
+    }
+
+    public void setStudentList(CollegeStudent[] student) {
+        this.student = new CollegeStudent[student.length];
+        for (int i = 0; i < student.length; i++) {
+            this.student[i] = student[i];
+        }
+    }
+
+    public CollegeStudent[] getStudentList() {
+        CollegeStudent[] Stud = new CollegeStudent[this.student.length];
+        for (int i = 0; i < this.student.length; i++) {
+            Stud[i] = this.student[i];
+        }
+        return Stud;
+    }
+
+    public void setInstructor(Professer instructor) {
+        this.instructor = instructor;
+    }
+
+    public void setCourse_name(String course_name) {
+        this.course_name = course_name;
+    }
+
+    public String toString() {
+        String result = "COURSE: " + course_name + "\nInstructor: " + instructor.toString() + "\nStudents:\n";
+        for (CollegeStudent s : student) {
+            result += s.toString() + "\n";
+        }
+        return result;
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        CollegeStudent[] cs1 = new CollegeStudent[2];
+        cs1[0] = new CollegeStudent("Bob", "65556898", 20, "897687790", 3.5, "Junior", "Computer science", "Undergraduate");
+        cs1[1] = new CollegeStudent("bobby", "68989899", 21, "89897791", 3.8, "Senior", "physics", "undergraduate");
+
+        Professer p1 = new Professer("John", "123-45-6789", 45, "P001", 85000, "10");
+
+        Course C1 = new Course(p1, cs1, "Introduction to programming");
+        System.out.println(C1);
+    }
+}
