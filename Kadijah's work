@@ -141,29 +141,34 @@ class Professer extends Teacher {
         this.research_area = yrs;
     }
 
-    public String getSpecialty() {
-        return this.Specialty;
+    public String getSpecialty(){ 
+return this.Specialty; }
+    public String getResearch_area(){ 
+return this.research_area; }
+    public String getRank(){ 
+return this.rank; }
+
+    public void setSpecialty(String s){
+this.Specialty = s; }
+    public void setResearch_area(String s){
+this.research_area = s; }
+    public void setRank(String s) { 
+this.rank = s; }
+
+
+    public void assignToCourse(Course c, CollegeStudent[] students) {
+        c.setInstructor(this);
+        c.setStudentList(students);
     }
 
-    public String getResearch_area() {
-        return this.research_area;
+    public void assignToDepartment(Department d) {
+        d.addFaculty(this);
     }
 
-    public String getRank() {
-        return this.rank;
+    public void chairDepartment(Department d) {
+        d.setChair(this);
     }
 
-    public void setSpecialty(String s) {
-        this.Specialty = s;
-    }
-
-    public void setResearch_area(String s) {
-        this.research_area = s;
-    }
-
-    public void setRank(String s) {
-        this.rank = s;
-    }
 
     public String toString() {
         return "Professor name: " + name + " Age: " + age + " Years as Professor: " + num_yr_prof +
@@ -217,6 +222,21 @@ class Course {
         }
     }
 
+    void setStudentList(CollegeStudent[] student) {
+        this.student = new CollegeStudent[student.length];
+        for (int i = 0; i < student.length; i++) {
+            this.student[i] = student[i];
+        }
+    }
+
+    public void setCourse_name(String course_name) {
+        this.course_name = course_name;
+    }
+
+    void setInstructor(Professer instructor) {
+        this.instructor = instructor;
+    }
+
     public Professer getInstructor() {
         return this.instructor;
     }
@@ -225,27 +245,12 @@ class Course {
         return this.course_name;
     }
 
-    public void setStudentList(CollegeStudent[] student) {
-        this.student = new CollegeStudent[student.length];
-        for (int i = 0; i < student.length; i++) {
-            this.student[i] = student[i];
-        }
-    }
-
-    public CollegeStudent[] getStudentList() {
+ public CollegeStudent[] getStudentList() {
         CollegeStudent[] Stud = new CollegeStudent[this.student.length];
         for (int i = 0; i < this.student.length; i++) {
             Stud[i] = this.student[i];
         }
         return Stud;
-    }
-
-    public void setInstructor(Professer instructor) {
-        this.instructor = instructor;
-    }
-
-    public void setCourse_name(String course_name) {
-        this.course_name = course_name;
     }
 
     public String toString() {
@@ -256,16 +261,109 @@ class Course {
         return result;
     }
 }
+class Department {
+    private Professer chair;
+    private Professer[] faculty;
+    private Course[] courses;
+    private int facultyCount = 0;
+    private int courseCount = 0;
+
+    public Department(int maxFaculty, int maxCourses) {
+        faculty = new Professer[maxFaculty];
+        courses = new Course[maxCourses];
+    }
+
+  
+    void setChair(Professer p) {
+        this.chair = p;
+    }
+
+    void addFaculty(Professer p) {
+        if (facultyCount < faculty.length) {
+            faculty[facultyCount++] = p;
+        } else {
+            System.out.println("Faculty list is full.");
+        }
+    }
+
+    void addCourse(Course c) {
+        if (courseCount < courses.length) {
+            courses[courseCount++] = c;
+        } else {
+            System.out.println("Course list is full.");
+        }
+    }
+
+    public Professer getChair() {
+        return chair;
+    }
+
+    public Professer[] getFaculty() {
+        Professer[] result = new Professer[facultyCount];
+        for (int i = 0; i < facultyCount; i++) {
+            result[i] = faculty[i];
+        }
+        return result;
+    }
+
+    public Course[] getCourses() {
+        Course[] result = new Course[courseCount];
+        for (int i = 0; i < courseCount; i++) {
+            result[i] = courses[i];
+        }
+        return result;
+    }
+
+    public String toString() {
+        return "Department chaired by: " + (chair != null ? chair.getName() : "None") +
+               " with " + facultyCount + " faculty and " + courseCount + " courses.";
+    }
+}
 
 class Main {
     public static void main(String[] args) {
-        CollegeStudent[] cs1 = new CollegeStudent[2];
-        cs1[0] = new CollegeStudent("Bob", "65556898", 20, "897687790", 3.5, "Junior", "Computer science", "Undergraduate");
-        cs1[1] = new CollegeStudent("bobby", "68989899", 21, "89897791", 3.8, "Senior", "physics", "undergraduate");
+        CollegeStudent[] cs1 = new CollegeStudent[3];
+       
+        cs1[0] = new CollegeStudent("Bob", "99256898", 20, "897687790", 3.5, "Junior", "Computer science", "Undergraduate");
+        cs1[1] = new CollegeStudent("bobby", "68988269", 21, "89897791", 3.8, "Freshman", "physics", "undergraduate");
+        cs1[2] = new CollegeStudent("Bobber", "645789899", 21, "89897791", 2.5, "Senior", "Engineering", "undergraduate");
 
-        Professer p1 = new Professer("John", "123-45-6789", 45, "P001", 85000, "10");
+     CollegeStudent[] ph1 = new CollegeStudent[2]
+
+        Professer p1 = new Professer("Harold", "384-45-6929", 30, "P1", 85000, "10");
+        Professer p2 = new Professer("Jared", "110-45-9173", 40, "P2", 85000, "10");
+        Professer p3 = new Professer("Gennie", "078-45-8274", 45, "P3", 85000, "10");
 
         Course C1 = new Course(p1, cs1, "Introduction to programming");
-        System.out.println(C1);
+Course c2 = new Course(p2, roster2, "Advanced Physics");
+
+        // Create 2 departments
+        Department d1 = new Department(5, 5);
+        Department d2 = new Department(5, 5);
+
+        p1.assignToDepartment(d1);
+        p2.assignToDepartment(d2);
+        p3.assignToDepartment(d1);
+
+        p3.chairDepartment(d1);
+        p2.chairDepartment(d2);
+
+        d1.addCourse(c1);
+        d2.addCourse(c2);
+
+        System.out.println(d1);
+        System.out.println(d2);
+
+        System.out.println(c1);
+        System.out.println(c2);
+
+ System.out.println("Student View D1:");
+        for (Course course : d1.getCourses()) {
+            System.out.println("Course: " + course.getCourse_name());
+            for (CollegeStudent s : course.getStudentList()) {
+                System.out.println("Student: " + s.getName());
+            }
+
+
     }
 }
