@@ -1,1 +1,58 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class UnitConverter extends JFrame {
+
+    private JTextField pound;
+    private JTextField kilogram;
+
+    public UnitConverter() {
+        super("Measurement Unit Converter");
+        setSize(300, 180);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        setLayout(new GridLayout(3, 2, 10, 10));
+
+
+        add(new JLabel("pound:"));
+        pound = new JTextField();
+        add(pound);
+
+        add(new JLabel("kilogram:"));
+        kilogram = new JTextField();
+        add(kilogram);
+
+        JButton convert = new JButton("convert");
+        JButton clear = new JButton("clear");
+        add(convert);
+        add(clear);
+        clear.setBackground(new Color(200, 0, 60));
+        convert.setBackground(new Color(0, 100, 0));
+
+        convert.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    double p = Double.parseDouble(pound.getText());
+                    kilogram.setText(String.format("%.3f", p * 0.454));
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Enter a valid number.");
+                }
+            }
+        });
+
+        clear.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                pound.setText("");
+                kilogram.setText("");
+                pound.requestFocus();
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        new UnitConverter().setVisible(true);
+    }
+}
 
