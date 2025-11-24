@@ -13,7 +13,7 @@ public class UnitConverter extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        setLayout(new GridLayout(3, 2, 10, 10));
+        setLayout(new GridLayout(3, 2, 20, 20));
 
 
         add(new JLabel("pound:"));
@@ -36,7 +36,7 @@ public class UnitConverter extends JFrame {
                 try {
                     double p = Double.parseDouble(pound.getText());
                     kilogram.setText(String.format("%.3f", p * 0.454));
-                } catch (NumberFormatException ex) {
+                } catch (NumberFormatException exception) {
                     JOptionPane.showMessageDialog(null, "Enter a valid number.");
                 }
             }
@@ -55,4 +55,3 @@ public class UnitConverter extends JFrame {
         new UnitConverter().setVisible(true);
     }
 }
-
